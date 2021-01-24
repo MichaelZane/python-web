@@ -20,15 +20,15 @@ db = SQLAlchemy(app)
 class Feedback(db.Model):
     __tablename__ = 'feedback'
     id = db.Column(db.Integer, primary_key=True)
-    customer = db.Column(db.String(200), unique=True)
+    email = db.Column(db.String(200), unique=True)
     dealer = db.Column(db.String(200))
-    rating = db.Column(db.Integer)
+    time_played = db.Column(db.Integer)
     comments = db.Column(db.Text())
 
-    def __init__(self, customer, dealer, rating, comments):
-        self.customer = customer
+    def __init__(self, email, dealer, time_played, comments):
+        self.email = email
         self.dealer = dealer
-        self.rating = rating
+        self.time_played = time_played
         self.comments = comments
 
 @app.route('/')
@@ -38,20 +38,20 @@ def index():
 @app.route('/submit', methods=['POST'])
 def submit():
     if request.method == 'POST':
-        customer = request.form['customer']
-        dealer = request.form['dealer']
-        rating = request.form['rating']
+        email = request.form['email']
+        select_game = request.form['select_game']
+        time_played = request.form['time_played']
         comments = request.form['comments']
-        message = f"<h3>New Feedback Submission</h3><ul><li>Customer: {customer}</li><li>Dealer: {dealer}</li><li>Rating: {rating}</li><li>Comments: {comments}</li></ul>"
+        
 
-        if customer == '' or dealer == '':
+        if email == '' or select_game == '':
             return render_template('index.html', message='Please enter required fields')
 
-        if db.session.query(Feedback).filter(Feedback.customer == customer).count() == 0:
-            data = Feedback(customer, dealer, rating, comments)
+        if db.session.query(Feedback).filter(Feedback.email == email).count() == 0:
+            data = Feedback(email, select_game, time_played, comments)
             db.session.add(data)
             db.session.commit()
-            send_mail(customer, dealer, rating, comments)
+            send_mail(email, select_game, time_played, comments)
             return render_template('success.html')
         return render_template('index.html', message='You have already submitted feedback')
         
