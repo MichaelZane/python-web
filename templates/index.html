@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel='stylesheet' href='../static/style.css'
-    <title>Sign up for email Notifications</title>
+    <title> </title>
 </head>
 <body>
     <div class='container'>
-        <img class='logo' src ='' alt='logo'>
+        <img class='logo' src ='../static/logo.png' alt='logo'/>
         {% if message %}
          <p class="message">{{ message | safe }}</p>
          {% endif %}
@@ -24,7 +24,7 @@
         </div>
         <div class="form-group">
           <h3>Poker Game I Play</h3>
-          <select name="">
+          <select name="select_game">
             <option value="">Select Game</option>
             <option value="1/3 NL HoldEm">1/3 NL HoldEm</option>
             <option value="2/5 NL HoldEm">2/5 NL HoldEm</option>
@@ -34,13 +34,13 @@
         </div>
         <div class="form-group">
           <h3>How many times a week would you play at a poker club</h3>
-          <input type="radio" name="rating" value="1" /> 1
-          <input type="radio" name="rating" value="2" /> 2
-          <input type="radio" name="rating" value="3" /> 3
-          <input type="radio" name="rating" value="4" /> 4
-          <input type="radio" name="rating" value="5" /> 5
-          <input type="radio" name="rating" value="6" /> 6
-          <input type="radio" name="rating" value="7" checked/> 7
+          <input type="radio" name="time_played" value="1" /> 1
+          <input type="radio" name="time_played" value="2" /> 2
+          <input type="radio" name="time_played" value="3" /> 3
+          <input type="radio" name="time_played" value="4" /> 4
+          <input type="radio" name="time_played" value="5" /> 5
+          <input type="radio" name="time_played" value="6" /> 6
+          <input type="radio" name="time_played" value="7" checked/> 7
         </div>
         <div class="form-group">
           <h3>Comments about what you would like to see at a poker club experience</h3>

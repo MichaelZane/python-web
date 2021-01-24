@@ -39,6 +39,7 @@ img {
 }
 
 .logo {
+	background-color: inherit;
 	width: 300px;
 	display: block;
 	margin: auto;
