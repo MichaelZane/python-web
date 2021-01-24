@@ -7,6 +7,8 @@ import os
 
 app = Flask(__name__)
 
+load_dotenv(verbose=True)
+
 ENV = 'prod'
 
 if ENV == 'dev':
