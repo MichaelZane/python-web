@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 
 
-ENV = 'prod'
+ENV = 'dev'
 
 if ENV == 'dev':
     SQLALCHEMY_DATABASE_URI = os.environ.get("SQLALCHEMY_DATABASE_URI") 
@@ -27,13 +27,17 @@ class Feedback(db.Model):
     __tablename__ = 'feedback'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(200), unique=True)
-    dealer = db.Column(db.String(200))
+    name = db.Column(db.string(30))
+    phone = db.Column(db.Integer, (10))
+    select_game = db.Column(db.String(200))
     time_played = db.Column(db.Integer)
     comments = db.Column(db.Text())
 
-    def __init__(self, email, dealer, time_played, comments):
+    def __init__(self, email, name, phone, select_game, time_played, comments):
         self.email = email
-        self.dealer = dealer
+        self.name = name
+        self.phone = phone
+        self.select_game = select_game
         self.time_played = time_played
         self.comments = comments
 
@@ -45,19 +49,21 @@ def index():
 def submit():
     if request.method == 'POST':
         email = request.form['email']
+        name = request.form['name']
+        phone = request.form['phone']
         select_game = request.form['select_game']
         time_played = request.form['time_played']
         comments = request.form['comments']
         
 
-        if email == '' or select_game == '':
+        if email == '' or select_game == '' or name == '':
             return render_template('index.html', message='Please enter required fields')
 
         if db.session.query(Feedback).filter(Feedback.email == email).count() == 0:
-            data = Feedback(email, select_game, time_played, comments)
+            data = Feedback(email, name, phone, select_game, time_played, comments)
             db.session.add(data)
             db.session.commit()
-            send_mail(email, select_game, time_played, comments)
+            send_mail(email, name, phone, select_game, time_played, comments)
             return render_template('success.html')
         return render_template('index.html', message='You have already submitted feedback')
         
