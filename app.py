@@ -28,7 +28,7 @@ class Feedback(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(200), unique=True)
     name = db.Column(db.String(30))
-    phone = db.Column(db.Integer(10))
+    phone = db.Column(db.Integer)
     select_game = db.Column(db.String(200))
     time_played = db.Column(db.Integer)
     comments = db.Column(db.Text())
